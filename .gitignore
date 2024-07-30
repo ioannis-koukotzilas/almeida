@@ -1,0 +1,28 @@
+### WordPress ###
+# Core
+wp-admin/
+wp-includes/
+license.txt
+readme.html
+wp-*.php
+xmlrpc.php
+
+# Configuration
+wp-config.php
+
+# htaccess
+.htaccess
+
+# Uploads
+wp-content/uploads/
+
+# Plugins
+wp-content/plugins/acf-theme-code-pro/
+wp-content/plugins/advanced-custom-fields-pro/
+wp-content/plugins/perfmatters/
+wp-content/plugins/facetwp/
+wp-content/plugins/facetwp-flyout/
+wp-content/plugins/woocommerce/
+
+# DS_Store
+.DS_Store
