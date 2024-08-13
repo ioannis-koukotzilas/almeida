@@ -1,56 +1,21 @@
 <?php
 
-/**
- * Monoscopic functions and definitions
- *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
- *
- * @package Monoscopic
- */
-
-if (!defined('_S_VERSION')) {
-	// Replace the version number of the theme on each release.
-	define('_S_VERSION', '1.0.0');
+if (!defined('_MONOSCOPIC_VERSION')) {
+	define('_MONOSCOPIC_VERSION', '1.0.0');
 }
 
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- */
 function monoscopic_setup()
 {
-	// Add default posts and comments RSS feed links to head.
-	add_theme_support('automatic-feed-links');
-
-	/*
-		* Let WordPress manage the document title.
-		* By adding theme support, we declare that this theme does not use a
-		* hard-coded <title> tag in the document head, and expect WordPress to
-		* provide it for us.
-		*/
 	add_theme_support('title-tag');
 
-	/*
-		* Enable support for Post Thumbnails on posts and pages.
-		*
-		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-		*/
 	add_theme_support('post-thumbnails');
 
-	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
 			'menu-1' => esc_html__('Primary', 'monoscopic'),
 		)
 	);
 
-	/*
-		* Switch default core markup for search form, comment form, and comments
-		* to output valid HTML5.
-		*/
 	add_theme_support(
 		'html5',
 		array(
@@ -66,64 +31,72 @@ function monoscopic_setup()
 }
 add_action('after_setup_theme', 'monoscopic_setup');
 
-/**
- * Set the content width in pixels, based on the theme's design and stylesheet.
- *
- * Priority 0 to make it available to lower priority callbacks.
- *
- * @global int $content_width
- */
 function monoscopic_content_width()
 {
 	$GLOBALS['content_width'] = apply_filters('monoscopic_content_width', 2560);
 }
 add_action('after_setup_theme', 'monoscopic_content_width', 0);
 
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function monoscopic_widgets_init()
-{
-	register_sidebar(
-		array(
-			'name'          => esc_html__('Sidebar', 'monoscopic'),
-			'id'            => 'sidebar-1',
-			'description'   => esc_html__('Add widgets here.', 'monoscopic'),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		)
-	);
-}
-add_action('widgets_init', 'monoscopic_widgets_init');
-
-/**
- * Enqueue scripts and styles.
- */
 function monoscopic_scripts()
 {
-	wp_enqueue_style('monoscopic-style', get_stylesheet_uri(), array(), _S_VERSION);
-
-	wp_enqueue_script('monoscopic-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
+	// CSS
+	wp_enqueue_style('style', get_stylesheet_uri(), array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('normalize', get_template_directory_uri() . '/assets/css/normalize.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('fonts', get_template_directory_uri() . '/assets/css/fonts.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('variables', get_template_directory_uri() . '/assets/css/variables.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('symbols', get_template_directory_uri() . '/assets/css/symbols.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/main.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('footer', get_template_directory_uri() . '/assets/css/footer.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('header', get_template_directory_uri() . '/assets/css/header.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('swiper', get_template_directory_uri() . '/assets/css/swiper.css', array(), _MONOSCOPIC_VERSION);
+	wp_enqueue_style('woocommerce', get_template_directory_uri() . '/assets/css/woocommerce.css', array(), _MONOSCOPIC_VERSION);
+	
+	// JS
+	wp_enqueue_script('swiper', get_template_directory_uri() . '/js/swiper.min.js', array(), _MONOSCOPIC_VERSION, true);
+	wp_enqueue_script('app', get_template_directory_uri() . '/js/main.js', array(), _MONOSCOPIC_VERSION, true);
 }
 add_action('wp_enqueue_scripts', 'monoscopic_scripts');
 
 /**
- * Custom template tags for this theme.
+ * Extend search functionality.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require get_template_directory() . '/inc/extend-search.php';
 
 /**
- * Functions which enhance the theme by hooking into WordPress.
+ * Load WooCommerce compatibility files.
  */
-require get_template_directory() . '/inc/template-functions.php';
 
-/**
- * Load WooCommerce compatibility file.
- */
 if (class_exists('WooCommerce')) {
-	require get_template_directory() . '/inc/woocommerce.php';
+	require get_template_directory() . '/inc/wc-setup.php';
+	require get_template_directory() . '/inc/wc-functions.php';
+	require get_template_directory() . '/inc/wc-actions.php';
 }
+
+function custom_add_to_cart_button($button, $product)
+{
+	// Add a data attribute for the product title
+	$button = str_replace('<a href=', '<a data-product_title="' . esc_attr($product->get_title()) . '" href=', $button);
+	return $button;
+}
+add_filter('woocommerce_loop_add_to_cart_link', 'custom_add_to_cart_button', 10, 2);
+
+function the_pagination()
+{
+	the_posts_pagination(array(
+		'mid_size' => 2,
+		'prev_text' => __('Previous', 'monoscopic'),
+		'next_text' => __('Next', 'monoscopic'),
+	));
+}
+
+function custom_search_form_placeholder($form)
+{
+	$new_placeholder = 'What are you looking for?';
+
+	if (strpos($form, 'placeholder="') !== false) {
+		$form = preg_replace('/placeholder="[^"]*"/', 'placeholder="' . esc_attr($new_placeholder) . '"', $form);
+	}
+
+	return $form;
+}
+add_filter('get_search_form', 'custom_search_form_placeholder', 100, 1);

@@ -1,0 +1,91 @@
+/*--------------------------------------------------------------
+# Variables
+--------------------------------------------------------------*/
+
+/* Root
+--------------------------------------------- */
+
+:root {
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-serif: 'Publico Text', serif;
+  --font-icon: 'Material Icons Outlined';
+
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-2xl: 1.5rem;
+  --font-3xl: 1.875rem;
+  --font-4xl: 2.25rem;
+  --font-5xl: 3rem;
+  --font-6xl: 3.75rem;
+  --font-7xl: 4.5rem;
+
+  --font-regular: 400;
+  --font-text: 450;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-black: 900;
+
+  --font-normal: normal;
+  --font-italic: italic;
+
+  --leading-none: 1;
+  --leading-tight: 1.15;
+  --leading-snug: 1.375;
+  --leading-base: 1.5;
+
+  --max-w-base: 2560px;
+  --max-w-sm: 540px;
+  --max-w-md: 720px;
+  --max-w-lg: 960px;
+  --max-w-xl: 1140px;
+  --max-w-xxl: 1320px;
+  --max-w-full: 100%;
+
+  --base-50: 246, 246, 246;
+  --base-100: 231, 231, 231;
+  --base-200: 209, 209, 209;
+  --base-300: 176, 176, 176;
+  --base-400: 136, 136, 136;
+  --base-500: 109, 109, 109;
+  --base-600: 93, 93, 93;
+  --base-700: 79, 79, 79;
+  --base-800: 69, 69, 69;
+  --base-900: 61, 61, 61;
+  --base-950: 17, 17, 17;
+
+  --gothic-50: 244, 247, 247;
+  --gothic-100: 226, 234, 235;
+  --gothic-200: 199, 214, 218;
+  --gothic-300: 161, 184, 191;
+  --gothic-400: 114, 146, 157;
+  --gothic-500: 87, 119, 131;
+  --gothic-600: 75, 100, 111;
+  --gothic-700: 65, 84, 93;
+  --gothic-800: 59, 72, 79;
+  --gothic-900: 52, 62, 69;
+  --gothic-950: 32, 40, 44;
+
+  --primary-0: 255, 255, 255;
+  --primary-50: var(--gothic-50);
+  --primary-100: var(--gothic-100);
+  --primary-200: var(--gothic-200);
+  --primary-300: var(--gothic-300);
+  --primary-400: var(--gothic-400);
+  --primary-500: var(--gothic-500);
+  --primary-600: var(--gothic-600);
+  --primary-700: var(--gothic-700);
+  --primary-800: var(--gothic-800);
+  --primary-900: var(--gothic-900);
+  --primary-950: var(--gothic-950);
+}
+
+@media (max-width: 720px) {
+  :root {
+    --font-3xl: var(--font-2xl);
+  }
+}

@@ -1,0 +1,34 @@
+/*--------------------------------------------------------------
+# Fonts
+--------------------------------------------------------------*/
+
+/* Material Icons
+--------------------------------------------- */
+
+@font-face {
+  font-family: 'Material Icons Outlined';
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+  src: url('../fonts/material-icons/material-icons-outlined.woff2')
+    format('woff2');
+}
+
+/* Publico Text
+--------------------------------------------- */
+
+@font-face {
+  font-family: 'Publico Text';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/publico/text/PublicoText-Roman-Cy-Gr-Web.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'Publico Text';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/publico/text/PublicoText-Bold-Cy-Gr-Web.woff2')
+    format('woff2');
+}
